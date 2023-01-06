@@ -1,5 +1,4 @@
-pymango==4.2.0
+pymongo[srv]==4.2.0
 python==3.8
 pandas
 numpy
--e .
