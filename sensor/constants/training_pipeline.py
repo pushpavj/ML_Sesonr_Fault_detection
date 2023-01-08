@@ -1,5 +1,8 @@
 import os
 from sensor.constants.s3_bucket import TRAINING_BUCKET_NAME
+
+
+
 #defining common constant variables for training pipeline
 TARGET_COLUMN="class"
 PIPELINE_NAME:str="sensor"
@@ -15,7 +18,7 @@ SCHEMA_FILE_PATH=os.path.join("config","schema.yaml")
 SCHEMA_DROP_COLS = 'drop_columns'
 
 #Data ingestion constants
-DATA_INGESTION_COLLECTION_NAME:str="sensor"
+DATA_INGESTION_COLLECTION_NAME:str="car"
 DATA_INGESTION_DIR_NAME:str='data_ingestion'
 DATA_INGESTION_FEATURE_STORE_DIR:str="feature_store"
 DATA_INGESTION_INGESTED_DIR:str="ingested"

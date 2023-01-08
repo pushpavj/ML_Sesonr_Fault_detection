@@ -10,10 +10,13 @@ class MongoDBClient:
         try:
             if MongoDBClient.client is None:
                 #mongo_db_url=os.getenv(MONGODB_URL_KEY)
-                mongo_db_url="mongodb+srv://pushpaVJ:Mongodb804000@cluster0.rxjr8.mongodb.net/?retryWrites=true&w=majority"
-                MongoDBClient.client=pymongo.MongoClient(mongo_db_url,tlsCAFile=ca)
-                self.client=MongoDBClient.client
+                mongo_db_url="mongodb://localhost:27017/"
+                #mongo_db_url="mongodb+srv://pushpaVJ:Mongodb804000@cluster0.rxjr8.mongodb.net/?retryWrites=true&w=majority"
+               # MongoDBClient.client=pymongo.MongoClient(mongo_db_url,tlsCAFile=ca)
+                self.client=pymongo.MongoClient(mongo_db_url)
+              #  self.client=MongoDBClient.client
                 self.database=self.client[database_name]
                 self.database_name=database_name
+                
         except Exception as e:
             raise e
