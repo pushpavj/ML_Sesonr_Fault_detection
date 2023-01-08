@@ -1,5 +1,5 @@
 import os
-from sensor.constants.s3_bucket import TRAINING_BUCKET_NAME
+from sensor.constants.s3_bucket_constatnts import TRAINING_BUCKET_NAME
 
 
 

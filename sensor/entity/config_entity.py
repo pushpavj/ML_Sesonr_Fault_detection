@@ -1,5 +1,5 @@
 from datetime import datetime
-from sensor.constants.training_pipeline import *
+from sensor.constants.pipeline_constant import *
 
 
 class TrainingPipelineConfig:
