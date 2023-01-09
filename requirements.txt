@@ -4,3 +4,4 @@ pandas
 numpy
 from_root
 dataclass
+scikit-learn==1.1.3

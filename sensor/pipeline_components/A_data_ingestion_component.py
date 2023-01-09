@@ -4,7 +4,7 @@ import os, sys
 from sensor.entity.config_entity import DataIngestionConfig
 from sensor.entity.artifact_entity import DataIngestionArtifact
 from sensor.data_util_code.sensor_data_util import GetSensorData
-#from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 
 class DataIngestioncomponent:
 
@@ -46,6 +46,29 @@ class DataIngestioncomponent:
         """
         try:
             logging.info("split_data_as_train_test started")
+          
+            train_set, test_set = train_test_split(
+                data_frame, test_size=self.data_ingestion_config.train_test_split_ratio
+            )
+
+            logging.info("Performed train test split on the dataframe")
+
+            dir_path = os.path.dirname(self.data_ingestion_config.training_file_path)
+
+            os.makedirs(dir_path, exist_ok=True)
+
+            logging.info(f"Exporting train and test file path.")
+
+            train_set.to_csv(
+                self.data_ingestion_config.training_file_path, index=False, header=True
+            )
+
+            test_set.to_csv(
+                self.data_ingestion_config.testing_file_path, index=False, header=True
+            )
+
+            logging.info(f"Exported train and test file path.")
+
             logging.info("split_data_as_train_test completed")
         except Exception as e:
             raise SensorException(e,sys)
