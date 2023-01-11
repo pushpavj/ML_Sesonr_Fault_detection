@@ -13,7 +13,7 @@ TEST_FILE_NAME:str="test.csv"
 
 PREPROCESSING_OBJECT_FILE_NAME='preprocessing.pkl'
 MODEL_FILE_NAME="model.pkl"
-SCHEMA_FILE_PATH=os.path.join("config","schema.yaml")
+SCHEMA_FILE_PATH=os.path.join("lookup_info","schema_file.yaml")
 
 SCHEMA_DROP_COLS = 'drop_columns'
 
@@ -42,7 +42,7 @@ DATA_VALIDATION_INVALID_DIR: str = "invalid"
 
 DATA_VALIDATION_DRIFT_REPORT_DIR: str = "drift_report"
 
-DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
+DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "Drift_report_file.yaml"
 
 """
 Data Transformation ralated constant start with DATA_TRANSFORMATION VAR NAME
@@ -65,7 +65,7 @@ MODEL_TRAINER_TRAINED_MODEL_NAME: str = "model.pkl"
 
 MODEL_TRAINER_EXPECTED_SCORE: float = 0.6
 
-MODEL_TRAINER_MODEL_CONFIG_FILE_PATH: str = os.path.join("config", "model.yaml")
+MODEL_TRAINER_MODEL_CONFIG_FILE_PATH: str = os.path.join("lookup_info", "model_info_file.yaml")
 """
 MODEL Evauation related constant start with MODEL_EVALUATION var name
 """

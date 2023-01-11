@@ -10,7 +10,7 @@ class TrainingPipelineConfig:
         self.pipeline_name: str = PIPELINE_NAME
         self.artifact_dir: str = os.path.join(ARTIFACT_DIR,timestamp)
         self.timestamp: str = timestamp
-
+training_pipeline_config: TrainingPipelineConfig = TrainingPipelineConfig()
 
 class DataIngestionConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
@@ -83,7 +83,7 @@ class DataTransformationConfig:
     transformed_object_file_path: str = os.path.join(
         data_transformation_dir,
         DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR,
-        PREPROCSSING_OBJECT_FILE_NAME,
+        #PREPROCSSING_OBJECT_FILE_NAME,
     )
 
 
@@ -118,17 +118,17 @@ class ModelPusherConfig:
     s3_model_key_path: str = os.path.join(MODEL_PUSHER_S3_KEY, MODEL_FILE_NAME)
 
 
-@dataclass
-class PredictionPipelineConfig:
-    data_bucket_name: str = prediction_pipeline.PREDICTION_DATA_BUCKET
+# @dataclass
+# class PredictionPipelineConfig:
+#     data_bucket_name: str = prediction_pipeline.PREDICTION_DATA_BUCKET
 
-    data_file_path: str = prediction_pipeline.PREDICTION_INPUT_FILE_NAME
+#     data_file_path: str = prediction_pipeline.PREDICTION_INPUT_FILE_NAME
 
-    model_file_path: str = os.path.join(MODEL_PUSHER_S3_KEY, MODEL_FILE_NAME)
+#     model_file_path: str = os.path.join(MODEL_PUSHER_S3_KEY, MODEL_FILE_NAME)
 
-    model_bucket_name: str = prediction_pipeline.MODEL_BUCKET_NAME
+#     model_bucket_name: str = prediction_pipeline.MODEL_BUCKET_NAME
 
-    output_file_name: str = prediction_pipeline.PREDICTION_OUTPUT_FILE_NAME
+#     output_file_name: str = prediction_pipeline.PREDICTION_OUTPUT_FILE_NAME
 
 
 @dataclass

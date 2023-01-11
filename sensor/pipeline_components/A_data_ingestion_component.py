@@ -4,6 +4,8 @@ import os, sys
 from sensor.entity.config_entity import DataIngestionConfig
 from sensor.entity.artifact_entity import DataIngestionArtifact
 from sensor.data_util_code.sensor_data_util import GetSensorData
+from sensor.utilities.utility_codes import util_read_yaml_file
+from sensor.constants.pipeline_constant import SCHEMA_FILE_PATH, SCHEMA_DROP_COLS
 from sklearn.model_selection import train_test_split
 
 class DataIngestioncomponent:
@@ -77,7 +79,13 @@ class DataIngestioncomponent:
         try:
             logging.info("Data ingestion initiated")
             dataframe=self.sub_export_data_into_feature_store()
+            _schema_config = util_read_yaml_file(file_path=SCHEMA_FILE_PATH)
+
+            dataframe = dataframe.drop(_schema_config[SCHEMA_DROP_COLS], axis=1)
+
+            logging.info("Got the data from mongodb")
             self.sub_split_data_as_train_test(data_frame=dataframe)
+            logging.info("Performed train test split on the dataset")
 
             data_ingestion_artifact=DataIngestionArtifact(
                 trained_file_path=self.data_ingestion_config.training_file_path,
