@@ -1,9 +1,12 @@
 import json
 import sys
+import os
 
 import pandas as pd
 from evidently.model_profile import Profile
 from evidently.model_profile.sections import DataDriftProfileSection
+from evidently.dashboard import Dashboard
+from evidently.dashboard.tabs import DataDriftTab
 from pandas import DataFrame
 
 from sensor.constants.pipeline_constant import SCHEMA_FILE_PATH
@@ -115,6 +118,20 @@ class DataValidationcomponent:
         except Exception as e:
             raise SensorException(e, sys) from e
 
+    def sub_save_data_drift_report_page(
+            self, reference_df: DataFrame, current_df: DataFrame):
+        try:
+            dashboard= Dashboard(tabs=[DataDriftTab()])
+            dashboard.calculate(reference_df, current_df)
+            
+            report_page_file_path= self.data_validation_config.drift_report_page_file_path
+            report_page_dir=os.path.dirname(report_page_file_path)
+            os.makedirs(report_page_dir,exist_ok=True)
+            dashboard.save(report_page_file_path)
+
+        except Exception as e:
+            raise SensorException(e, sys) from e
+
     def main_initiate_data_validation(self) -> DataValidationArtifact:
         """
         Method Name :   initiate_data_validation
@@ -176,6 +193,8 @@ class DataValidationcomponent:
 
                 if drift_status:
                     logging.info(f"Drift detected.")
+
+                self.sub_save_data_drift_report_page(train_df, test_df)
 
             else:
                 logging.info(f"Validation_error: {validation_error_msg}")
