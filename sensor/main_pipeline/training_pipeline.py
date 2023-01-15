@@ -1,13 +1,14 @@
 from sensor.entity.config_entity import TrainingPipelineConfig, DataIngestionConfig, \
-        DataValidationConfig, DataTransformationConfig
+        DataValidationConfig, DataTransformationConfig, ModelTrainerConfig
 from sensor.exceptions import SensorException
 from sensor.logger import logging
 from sensor.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact, \
-    DataTransformationArtifact
+    DataTransformationArtifact,ModelTrainerArtifact
 import sys
 from sensor.pipeline_components.A_data_ingestion_component import DataIngestioncomponent
 from sensor.pipeline_components.B_data_validation_component import DataValidationcomponent
 from sensor.pipeline_components.C_data_transformation_component import DataTransformationcomponent
+from sensor.pipeline_components.D_model_trainer_component import ModelTrainercomponent
 class TrainPipeline:
 
     def __init__(self):
@@ -20,7 +21,7 @@ class TrainPipeline:
 
         self.data_transformation_config = DataTransformationConfig()
 
-        # self.model_trainer_config = ModelTrainerConfig()
+        self.model_trainer_config = ModelTrainerConfig()
 
         # self.model_evaluation_config = ModelEvaluationConfig()
 
@@ -75,16 +76,28 @@ class TrainPipeline:
             return data_transformation_artifact
         except Exception as e:
             raise SensorException(e,sys)
-    def start_model_trainer(self):
+    def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact
+    ) -> ModelTrainerArtifact:
         try:
             logging.info("Starting model trainer")
+            model_trainer = ModelTrainercomponent(
+                data_transformation_artifact=data_transformation_artifact,
+                model_trainer_config=self.model_trainer_config,
+            )
+
+            model_trainer_artifact = model_trainer.main_initiate_model_trainer()
             logging.info("Model trainer is complete")
+            return model_trainer_artifact
         except Exception as e:
             raise SensorException(e,sys)
     def start_model_evaluation(self):
         try:
             logging.info("Starting model evaluation")
+           
+
             logging.info("Model evaluation is complete")
+            
+            
         except Exception as e:
             raise SensorException(e,sys)
     def start_model_pusher(self):
@@ -102,6 +115,9 @@ class TrainPipeline:
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact)                      # self.start_data_transformation()
             data_transformation_artifact = self.start_data_transformation(
                 data_validation_artifact )
+            model_trainer_artifact = self.start_model_trainer(
+                data_transformation_artifact
+            )
             # self.start_model_evaluation()
             # self.start_model_pusher()
         except Exception as e:
