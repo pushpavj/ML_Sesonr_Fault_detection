@@ -3,7 +3,7 @@ from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_
 from sensor.entity.artifact_entity import ClassificationMetricArtifact
 
 
-def cust_calculate_metric(model, x, y) -> ClassificationMetricArtifact:
+def cust_calculate_metric(model,x, y) -> ClassificationMetricArtifact:
     """
     model: estimator
     x: input feature

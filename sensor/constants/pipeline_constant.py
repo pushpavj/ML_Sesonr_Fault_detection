@@ -10,6 +10,8 @@ ARTIFACT_DIR:str="artifacts"
 FILE_NAME:str="sensor.csv"
 TRAIN_FILE_NAME:str="train.csv"
 TEST_FILE_NAME:str="test.csv"
+SAVED_MODEL_DIR=os.path.join("saved_models")
+
 
 PREPROCESSING_OBJECT_FILE_NAME='preprocessing.pkl'
 MODEL_FILE_NAME="model.pkl"
@@ -72,7 +74,12 @@ MODEL Evauation related constant start with MODEL_EVALUATION var name
 """
 
 MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.02
+MODEL_EVALUATION_DIR_NAME: str = "model_evaluation"
+MODEL_EVALUATION_REPORT_NAME= "report.yaml"
 
 MODEL_PUSHER_BUCKET_NAME = TRAINING_BUCKET_NAME
 
 MODEL_PUSHER_S3_KEY = "model-registry"
+
+MODEL_PUSHER_DIR_NAME = "model_pusher"
+MODEL_PUSHER_SAVED_MODEL_DIR = SAVED_MODEL_DIR

@@ -37,7 +37,7 @@ Deployment Archietecture
 image
 
 Step 1: Clone the repository
-git clone https://github.com/sethusaim/Sensor-Fault-Detection.git
+git clone https://github.com/pushpavj/ML_Sesonr_Fault_detection.git
 Step 2- Create a conda environment after opening the repository
 conda create -n sensor python=3.7.6 -y
 conda activate sensor
@@ -50,7 +50,7 @@ export AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
 
 export AWS_DEFAULT_REGION=<AWS_DEFAULT_REGION>
 
-export MONGODB_URL="mongodb+srv://<username>:<password>@ineuron-ai-projects.7eh1w4s.mongodb.net/?retryWrites=true&w=majority"
+export MONGODB_URL
 Step 5 - Run the application server
 python app.py
 Step 6. Train application
@@ -67,14 +67,5 @@ docker build --build-arg AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID> --build-arg AWS_S
 Run the Docker image
 docker run -d -p 8080:8080 <IMAGE_NAME>
 To run the project first execute the below commmand. MONGO DB URL:
-
-mongodb+srv://avnish:XglZZ9OkjjUw74pZ@ineuron-ai-projects.7eh1w4s.mongodb.net/admin?authSource=admin&replicaSet=atlas-okvkrd-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true
-windows user
-
-MONGO_DB_URL=mongodb+srv://avnish:XglZZ9OkjjUw74pZ@ineuron-ai-projects.7eh1w4s.mongodb.net/admin?authSource=admin&replicaSet=atlas-okvkrd-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true
-Linux user
-
-export MONGO_DB_URL=mongodb+srv://avnish:XglZZ9OkjjUw74pZ@ineuron-ai-projects.7eh1w4s.mongodb.net/admin?authSource=admin&replicaSet=atlas-okvkrd-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true
-then run
 
 python main.py
