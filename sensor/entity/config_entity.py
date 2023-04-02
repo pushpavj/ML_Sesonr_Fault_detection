@@ -30,7 +30,8 @@ class DataIngestionConfig:
         self.testing_file_path: str = os.path.join(
             self.data_ingestion_dir, DATA_INGESTION_INGESTED_DIR,TEST_FILE_NAME
         )
-
+        
+        self.test_data_file_path= os.path.join(TEST_DATA_DIR,TEST_FILE_NAME)
         self.train_test_split_ratio: float = DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO
 
         self.collection_name: str = DATA_INGESTION_COLLECTION_NAME

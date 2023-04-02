@@ -69,6 +69,12 @@ class DataIngestioncomponent:
                 self.data_ingestion_config.testing_file_path, index=False, header=True
             )
 
+            dir_path2=os.path.dirname(self.data_ingestion_config.test_data_file_path)
+            os.makedirs(dir_path2, exist_ok=True)
+
+            test_set.to_csv(
+                self.data_ingestion_config.test_data_file_path, index=False, header=True
+            )
             logging.info(f"Exported train and test file path.")
 
             logging.info("split_data_as_train_test completed")

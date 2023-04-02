@@ -1,6 +1,6 @@
 import os.path
 import sys
-
+import pandas as pd
 import dill
 import numpy as np
 import yaml
@@ -93,3 +93,10 @@ def util_save_object(file_path: str, obj: object) -> None:
 
     except Exception as e:
         raise SensorException(e, sys) from e
+
+
+def util_read_csv(file_path):
+        try:
+            return pd.read_csv(file_path)
+        except Exception as e:
+            raise SensorException(e, sys)

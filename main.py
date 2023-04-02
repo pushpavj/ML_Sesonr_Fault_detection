@@ -5,19 +5,19 @@ from sensor.logger import logging
 from sensor.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig
 from sensor.main_pipeline.training_pipeline import TrainPipeline
 from sensor.configuration.mongodb_conection_config import MongoDBClientConnection
-
+import pandas as pd
 
 
 from sensor.main_pipeline import training_pipeline
 from sensor.utilities.utility_codes import util_read_yaml_file
-from sensor.constants.pipeline_constant import SAVED_MODEL_DIR
+from sensor.constants.pipeline_constant import SAVED_MODEL_DIR,TARGET_COLUMN
 from fastapi import FastAPI
 from sensor.constants.application_constants import APP_HOST, APP_PORT
 from starlette.responses import RedirectResponse
 from uvicorn import run as app_run
 from fastapi.responses import Response
 from sensor.ml_customized_modules.cust_model.customized_estimator import ModelResolver,CustTargetValueMapping
-from sensor.utilities.utility_codes import util_load_object
+from sensor.utilities.utility_codes import util_load_object,util_read_csv
 from fastapi.middleware.cors import CORSMiddleware
 
 env_file_path=os.path.join(os.getcwd(),"env.yaml")
@@ -64,17 +64,27 @@ async def predict_route():
         #conver csv file to dataframe
 
         df=None
+        training_pipeline_config=TrainingPipelineConfig()
+        Ingest_data=DataIngestionConfig(training_pipeline_config)
+        test_data_path=Ingest_data.test_data_file_path
+        data=util_read_csv(test_data_path)
+        df=pd.DataFrame(data.iloc[1]).T
+        df1=df.copy(deep=True)  
+        print("columns", df.columns)
+        df.drop(columns=TARGET_COLUMN, axis=1,  inplace=True)
+        print("df",df)
         model_resolver = ModelResolver(model_dir=SAVED_MODEL_DIR)
         if not model_resolver.is_model_exists():
             return Response("Model is not available")
         
-        best_model_path = model_resolver.get_best_model_path()
-        model = load_object(file_path=best_model_path)
+        best_model_path = model_resolver.get_best_model()
+        model = util_load_object(file_path=best_model_path)
         y_pred = model.predict(df)
-        df['predicted_column'] = y_pred
-        df['predicted_column'].replace(CustTargetValueMapping().reverse_mapping(),inplace=True)
-        
+        df1['predicted_column'] = y_pred
+        df1['predicted_column'].replace(CustTargetValueMapping().reverse_mapping(),inplace=True)
+        print("successfull")
         #decide how to return file to user.
+        return Response(f"{df1.head()}")
         
     except Exception as e:
         raise Response(f"Error Occured! {e}")

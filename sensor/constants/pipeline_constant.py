@@ -1,7 +1,7 @@
 import os
 from sensor.constants.s3_bucket_constatnts import TRAINING_BUCKET_NAME
 
-
+ROOT_DIR=os.getcwd()
 
 #defining common constant variables for training pipeline
 TARGET_COLUMN="class"
@@ -11,6 +11,9 @@ FILE_NAME:str="sensor.csv"
 TRAIN_FILE_NAME:str="train.csv"
 TEST_FILE_NAME:str="test.csv"
 SAVED_MODEL_DIR=os.path.join("saved_models")
+SENSOR_TEST_DATA_PATH=os.path.join(ROOT_DIR,ARTIFACT_DIR,)
+TEST_DATA_DIR="DATA_FOR_TESTING"
+
 
 
 PREPROCESSING_OBJECT_FILE_NAME='preprocessing.pkl'
